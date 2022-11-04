@@ -42,7 +42,7 @@ In case you use a GCP account for this lab, we provided the Google Kubernetes En
 | GKE mode | `Standard with static K8s version` |
 | Location type | `Zonal` |
 | Release channel | `None` |
-| Kubernetes version | `v1.24.6-gke.1500 ` |
+| Kubernetes version | `v1.24.6-gke.1500` |
 | Number of nodes | `3` |
 | Machine type | `e2-medium` |
 | Image type | `cos_containerd` |
@@ -54,7 +54,7 @@ You can create a K8s cluster for this lab with the following commands:
 
 ```
 gcloud auth login
-gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-service-externalips --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version=1.23.9-gke.900 --machine-type=e2-standard-2 --monitoring=NONE
+gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-service-externalips --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version= v1.24.6-gke.1500 --machine-type=e2-medium --monitoring=NONE
 ```
 
 * kubectl configuration
