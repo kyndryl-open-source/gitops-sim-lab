@@ -7,6 +7,8 @@
 
 ### Architecture
 
+// TODO
+
 ### Learning objectives
 
 * Learn how to deploy an app using GitOps approach
@@ -46,7 +48,9 @@ You can create a K8s cluster for this lab with the following commands:
 
 ```
 gcloud auth login
-gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-service-externalips --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version= v1.24.6-gke.1500 --machine-type=e2-medium --monitoring=NONE
+gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-service-externalips \
+ --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version= v1.24.6-gke.1500 \
+ --machine-type=e2-medium --monitoring=NONE
 ```
 
 * kubectl configuration
@@ -54,7 +58,8 @@ gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-serv
 You can configure your local `kubectl` environment and credentials with the following command:
 
 ```
-gcloud container clusters get-credentials cluster-1 --zone <your_closest_region> --project <your_project_id>
+gcloud container clusters get-credentials cluster-1 \
+ --zone <your_closest_region> --project <your_project_id>
 ```
 
 ### Contents
