@@ -1,6 +1,6 @@
 # SRE@Kyndryl
 
-## SRE Public Labs - GITOPS Sim
+## SRE Public Labs - GitOps Sim
 
 * Version: `0.1.0`
 * License: `MIT`
@@ -13,7 +13,7 @@
 
 * Learn how to deploy an app using GitOps approach
 
-* Learn how use Argo CD
+* Learn how use Argo CD as a GitOps platform
 
 ### Pre-requisite knowledge
 
@@ -48,7 +48,7 @@ You can create a K8s cluster for this lab with the following commands:
 
 ```
 gcloud auth login
-gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-service-externalips \
+gcloud container clusters create gitops-sim --no-enable-autoupgrade --enable-service-externalips \
  --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version= v1.24.6-gke.1500 \
  --machine-type=e2-medium --monitoring=NONE
 ```
@@ -58,19 +58,43 @@ gcloud container clusters create cluster-1 --no-enable-autoupgrade --enable-serv
 You can configure your local `kubectl` environment and credentials with the following command:
 
 ```
-gcloud container clusters get-credentials cluster-1 \
+gcloud container clusters get-credentials gitops-sim \
  --zone <your_closest_region> --project <your_project_id>
 ```
 
-### Contents
-
-*
-
-### Installation
+### Lab Contents
 
 * Argo CD
 
+Argo CD is installed through its default K8s manifest file located [here](https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml).
+
+* Node.js API app
+
+There's a dummy Node.js API available as K8s manifest files [here](https://github.com/kyndryl-open-source/gitops-app-examples.git). It points to a public Docker image located at the Docker Hub.
+
 ```
+image: rod4n4m1/node-api:0.1.2
+```
+
+* Folder contents: `argocd`
+
+| **File / folder** | **Description** |
+|:--------------------------------|:--------------------------------|
+| deploy.sh | `Automation script to deploy latest stable Argo CD release to a K8s cluster` |
+| ingress.yaml | `A K8s ingress for Argo CD in case one is needed` |
+| install.sh | `Automation script to create an Argo CD app and deploy the Node.js API using GitOps approach to a K8s cluster` |
+| README.d | `This file` |
+| process.env | `Example of environmental variables definition to configure the deploy.sh script` |
+| | |
+
+
+### Installation
+
+* Install Argo CD
+
+This automation script will deploy the latest stable Argo CD release to a K8s cluster under the `argocd` namespace.
+
+```shell
 cd argo-cd
 ./install.sh
 ```
@@ -80,10 +104,11 @@ cd argo-cd
 
 ### Configuration
 
-* Environmental Variables
+* Change environmental variables accordingly
 
-process.env
-```
+**process.env**
+
+```shell
 #!/bin/bash
 
 export ARGOCD_ADMIN_NAME="admin"
@@ -92,13 +117,31 @@ export APP_REPO_URL="https://github.com/kyndryl-open-source/gitops-app-examples.
 export APP_REPO_PATH="simple-node-api"
 ```
 
+* You can **fork* the above repository if you want to modify the application image and version. Under a `GitOps` approach, all changes to the application or infrastructure is made to the GitHub repository and not on the K8s cluster directly.
+
 ### Deployment
 
-* Simple Node API
+* Deploy a Simple Node.js API
 
-```
+This will deploy a K8s app as an Argo CD app to the cluster where it's running. An Argo CD app synchronizes with IaC and app manifest files in a GitHub repo.
+
+```shell
 cd argo-cd
 ./deploy.sh
 ```
+
+### Usage
+
+* You can access the **Argo CD** console by checking the `LoadBalancer` service IP address:
+
+`kubectl get svc -n argocd`
+
+* Open a browser with the following ULR: `http://<load_balancer_ip>`
+
+* Log into the console using the `admin` username and its initial password
+
+* The `deploy.sh` script have created an Argo CD app that synchronizes with a GitHub repo
+
+* If you have forked the application repository, you can change the image and version, then resynchronize the Argo CD app
 
 ## End of document
