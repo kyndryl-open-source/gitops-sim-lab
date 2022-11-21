@@ -84,7 +84,7 @@ image: rod4n4m1/node-api:0.1.2
 | ingress.yaml | `A K8s ingress for Argo CD in case one is needed` |
 | install.sh | `Automation script to create an Argo CD app and deploy the Node.js API using GitOps approach to a K8s cluster` |
 | README.d | `This file` |
-| process.env | `Example of enviromental variables definition to configure the deploy.sh script` |
+| process.env | `Example of environmental variables definition to configure the deploy.sh script` |
 | | |
 
 
