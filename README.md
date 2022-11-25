@@ -104,7 +104,7 @@ cd argo-cd
 
 * Change environmental variables accordingly
 
-**process.env**
+* File: **process.env**
 
 ```shell
 #!/bin/bash
@@ -115,7 +115,7 @@ export APP_REPO_URL="https://github.com/kyndryl-open-source/gitops-app-examples.
 export APP_REPO_PATH="simple-node-api"
 ```
 
-* You can **fork* the above repository if you want to modify the application image and version. Under a `GitOps` approach, all changes to the application or infrastructure is made to the GitHub repository and not on the K8s cluster directly.
+* You can **fork** the above repository if you want to modify the application image and version. Under a `GitOps` approach, all changes to the application or infrastructure is made to the GitHub repository and not on the K8s cluster directly.
 
 ### Deployment
 
