@@ -17,11 +17,11 @@
 
 ### Pre-requisite knowledge
 
-*	Familiarity with Kubernetes
+* Familiarity with Kubernetes
 
-*	Basic notions on Node.js (JavaScript) programming language
+* Basic notions on Node.js (JavaScript) programming language
 
-*	Good understanding of YAML (Yet Another Markup Language)
+* Good understanding of YAML (Yet Another Markup Language)
 
 ### Kubernetes cluster
 
@@ -46,7 +46,7 @@ In case you use a GCP account for this lab, we provided the Google Kubernetes En
 
 You can create a K8s cluster for this lab with the following commands:
 
-```
+```shell
 gcloud auth login
 gcloud container clusters create gitops-sim --no-enable-autoupgrade --enable-service-externalips \
  --enable-kubernetes-alpha --region=<your_closest_region> --cluster-version= v1.24.6-gke.1500 \
@@ -57,9 +57,9 @@ gcloud container clusters create gitops-sim --no-enable-autoupgrade --enable-ser
 
 You can configure your local `kubectl` environment and credentials with the following command:
 
-```
+```shell
 gcloud container clusters get-credentials gitops-sim \
- --zone <your_closest_region> --project <your_project_id>
+ --zone <your_closest_zone> --project <your_project_id>
 ```
 
 ### Lab Contents
@@ -72,7 +72,7 @@ Argo CD is installed through its default K8s manifest file located [here](https:
 
 There's a dummy Node.js API available as K8s manifest files [here](https://github.com/kyndryl-open-source/gitops-app-examples.git). It points to a public Docker image located at the Docker Hub.
 
-```
+```ymal
 image: rod4n4m1/node-api:0.1.2
 ```
 
@@ -87,7 +87,6 @@ image: rod4n4m1/node-api:0.1.2
 | process.env | `Example of environmental variables definition to configure the deploy.sh script` |
 | | |
 
-
 ### Installation
 
 * Install Argo CD
@@ -101,12 +100,11 @@ cd argo-cd
 
 * More information [here](https://argo-cd.readthedocs.io/en/stable/getting_started/)
 
-
 ### Configuration
 
 * Change environmental variables accordingly
 
-**process.env**
+* File: **process.env**
 
 ```shell
 #!/bin/bash
@@ -117,7 +115,7 @@ export APP_REPO_URL="https://github.com/kyndryl-open-source/gitops-app-examples.
 export APP_REPO_PATH="simple-node-api"
 ```
 
-* You can **fork* the above repository if you want to modify the application image and version. Under a `GitOps` approach, all changes to the application or infrastructure is made to the GitHub repository and not on the K8s cluster directly.
+* You can **fork** the above repository if you want to modify the application image and version. Under a `GitOps` approach, all changes to the application or infrastructure is made to the GitHub repository and not on the K8s cluster directly.
 
 ### Deployment
 
